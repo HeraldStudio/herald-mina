@@ -38,7 +38,7 @@
     events = {
       auth_success:()=>{
         this.$broadcast('auth_success')
-        console.log('认证成功');
+          console.log('认证成功');
         }
     }
 

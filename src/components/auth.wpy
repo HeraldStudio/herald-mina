@@ -35,7 +35,7 @@
 </style>
 
 <template lang="pug">
-  view.body
+  view.body(wx-if="{{!isAuthed}}")
     image.logo(src="/resource/images/icon.png")
     text.bold-14.title 统一身份认证
     image.polygon(src="/resource/images/polygon.png")
@@ -64,13 +64,20 @@
 
   export default class Auth extends wepy.component {
     components = {}
-    data = {}
+    data = {
+      isAuthed:true
+    }
 
     methods = {
       auth: () => {
         auth(this.cardnum, this.password).then((result)=>{
         if (result.success) {
-
+          //检查是否登录成功
+          let token = wx.getStorageSync('herald-token')
+          if (token) {
+            this.isAuthed = true
+            this.$emit('auth_success')
+          }
         } else {
           showModal({
             title:'emmm，登录失败了！',
@@ -93,7 +100,18 @@
       }
     }
 
+    checkAuthState() {
+      console.log('检查')
+      let token = wx.getStorageSync('herald-token')
+      if (!token) {
+        this.isAuthed = false
+      } else {
+        this.$emit('auth_success');
+      }
+    }
     onLoad () {
+      this.checkAuthState()
+      setInterval(()=>{this.checkAuthState()}, 5000)
     }
   }
 </script>
