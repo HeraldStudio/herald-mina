@@ -27,7 +27,7 @@
   }
 
   .copyright{
-    margin-top: 15pt;
+    margin-top: 20pt;
     font-size: 9pt;
     color: #888888;
   }
@@ -49,7 +49,7 @@
       placeholder="统一身份认证密码"
       type="text"
       password=true
-      style="margin-bottom:15pt;"
+      style="margin-bottom:20pt;"
       confirm-type="登录小猴偷米"
       bindinput="password"
     )
