@@ -1,0 +1,33 @@
+<style lang="less">
+</style>
+
+<template>
+  <view class="container">
+    <text>活动页</text>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '小猴偷米'
+    }
+    components = {}
+
+    data = {}
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {}
+
+    events = {}
+
+    onLoad() {}
+  }
+</script>

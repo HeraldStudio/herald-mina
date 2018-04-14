@@ -1,0 +1,49 @@
+<style lang="less">
+.body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+</style>
+
+<template lang="pug">
+  view.body
+    auth
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Auth from '@/components/auth'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '小猴偷米'
+    }
+    components = {
+      auth:Auth
+    }
+
+    data = {}
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {}
+
+    events = {
+      auth_success:()=>{
+        this.$broadcast('auth_success')
+        console.log('认证成功');
+        }
+    }
+
+    onLoad() {
+
+    }
+  }
+</script>

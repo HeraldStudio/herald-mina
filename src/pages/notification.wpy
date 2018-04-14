@@ -1,0 +1,39 @@
+<style lang="less">
+</style>
+
+<template lang="pug">
+  view
+    text 通知页
+    text(wx-if="{{isAuthed}}") 登录成功
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '小猴偷米'
+    }
+    components = {}
+
+    data = {
+      isAuthed:false
+    }
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {}
+
+    events = {
+      auth_success:() => {
+        this.isAuthed = true
+      }
+    }
+
+    onLoad() {}
+  }
+</script>

@@ -1,0 +1,168 @@
+<style lang="less">
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+  button::after{
+    border: none;
+  }
+
+  .polygon{
+    width: 8pt;
+    height: 4pt;
+    padding-bottom: 15pt;
+  }
+
+  .regular-14{
+    font-size:14pt;
+    color:#333333;
+    line-height:1;
+  }
+
+  .bold-14{
+    font-size:14pt;
+    color:#555555;
+    font-weight: bold;
+    line-height:1;
+  }
+
+  .regular-13{
+    font-size:13pt;
+    color:#333333;
+    line-height:1;
+  }
+
+  .bold-13{
+    font-size:13pt;
+    color:#555555;
+    font-weight: bold;
+    line-height:1;
+  }
+  
+  button.primary{
+    border-color: #ddfbff;
+    border-radius: 3pt;
+    font-size:14pt;
+    padding: 6pt 14pt 6pt 14pt;
+    background-color: #ddfbff;
+    font-weight: bold;
+    color: #237a86;
+    line-height: 1;
+  }
+
+  button.primary:active{
+    background-color: #add5da;
+  }
+
+  button.warning{
+    border-radius: 3rpx;
+    padding: 3rpx 6rpx 3rpx 6rpx;
+    background-color: #fff6de;
+    font-size: 14rpx;
+    font-weight: bold;
+    color: #876b23;
+  }
+
+  input.regular{
+    color:#333333;
+    background-color: #fafafa;
+    border-radius: 3pt;
+    font-size:13pt;
+    padding: 6pt 14pt 6pt 14pt;
+    margin-bottom:10pt;
+  }
+
+  .input-placeholder{
+    color:#888888;
+    font-size: 13pt;
+  }
+
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+const herald = {}
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/home',
+      'pages/activity',
+      'pages/notification'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      color:'#888888',
+      selectedColor:'#00abc3',
+      backgroundColor:'#ffffff',
+      list: [{
+        iconPath: "resource/images/tab-icon/home.png",
+        selectedIconPath: "resource/images/tab-icon/home-selected.png",
+        pagePath: "pages/home",
+        text: "首页"
+    }, {
+        iconPath: "resource/images/tab-icon/activity.png",
+        selectedIconPath: "resource/images/tab-icon/activity-selected.png",
+        pagePath: "pages/activity",
+        text: "活动"
+    }, {
+        iconPath: "resource/images/tab-icon/notification.png",
+        selectedIconPath: "resource/images/tab-icon/notification-selected.png",
+        pagePath: "pages/notification",
+        text: "通知"
+    }]}
+  }
+  enablePullDownRefresh = true
+
+ 
+
+  globalData = {
+    userInfo: null,
+  }
+
+  constructor () {
+    super()
+    this.use('requestfix')
+  }
+
+  onLaunch() {
+    this.testAsync()
+  }
+
+  sleep (s) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('promise resolved')
+      }, s * 1000)
+    })
+  }
+
+  async testAsync () {
+    const data = await this.sleep(3)
+    console.log(data)
+  }
+
+  getUserInfo(cb) {
+    const that = this
+    if (this.globalData.userInfo) {
+      return this.globalData.userInfo
+    }
+    wepy.getUserInfo({
+      success (res) {
+        that.globalData.userInfo = res.userInfo
+        cb && cb(res.userInfo)
+      }
+    })
+  }
+}
+</script>

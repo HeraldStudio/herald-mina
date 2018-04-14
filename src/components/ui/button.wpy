@@ -1,0 +1,43 @@
+<style lang="less">
+
+  .primary{
+    border-color: #ddfbff;
+    border-radius: 3pt;
+    font-size:14pt;
+    padding: 6pt 14pt 6pt 14pt;
+    background-color: #ddfbff;
+    font-weight: bold;
+    color: #237a86;
+  }
+
+  .warning{
+    border-radius: 3rpx;
+    padding: 3rpx 6rpx 3rpx 6rpx;
+    background-color: #fff6de;
+    font-size: 14rpx;
+    font-weight: bold;
+    color: #876b23;
+  }
+</style>
+
+<template lang="pug">
+  button.primary {{label}}
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class heraldButton extends wepy.component {
+    data = {}
+
+    props = {
+      label:String
+    }
+
+    method = {
+      tap () {
+        console.log('click')
+      }
+    }
+  }
+</script>
