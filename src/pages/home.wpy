@@ -14,6 +14,7 @@
     auth
     view.body(wx-if="{{isAuthed}}")
         DashboardCard
+        CurriculumCard
 </template>
 
 <script>
@@ -21,6 +22,7 @@
   import Auth from '@/components/auth'
   
   import DashboardCard from '@/components/dashboard-card'
+  import CurriculumCard from '@/components/curriculum-card'
   export default class Index extends wepy.page {
 
     config = {
@@ -29,7 +31,8 @@
 
     components = {
         auth:Auth,
-        DashboardCard
+        DashboardCard,
+        CurriculumCard
     }
     
     data = {

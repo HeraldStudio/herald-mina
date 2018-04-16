@@ -163,5 +163,10 @@ function userInfoApi(hook){
     fetchUIdata('/api/srtp', 'GET', null, hook);
  }
 
+function curriculumApi(hook, term){
+    fetchUIdata('/api/curriculum', 'GET', {term}, hook);
+}
+
 export {auth, deAuth, fetchUIdata, request, 
-    allinoneCardApi, userInfoApi, peApi, gpaApi, lectureApi, srtpApi}
+    allinoneCardApi, userInfoApi, peApi, gpaApi, lectureApi, srtpApi,
+    curriculumApi}

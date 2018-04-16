@@ -1,5 +1,5 @@
 /**
-  主页信息板卡片
+  课程表卡片
 **/
 
 <style lang="less">
@@ -53,8 +53,8 @@
 
 <template lang="pug">
   view.card
-    // text.title 一目了然
-    // image.polygon(src="/resource/images/polygon.png")
+    text.title 课程表
+    image.polygon(src="/resource/images/polygon.png")
     view.content
       view.user-info
         view
@@ -91,62 +91,25 @@
 
 <script>
   import wepy from 'wepy'
-  import {allinoneCardApi, userInfoApi, peApi, gpaApi, srtpApi, lectureApi} from '@/provider'
-
-  export default class DashboardCard extends wepy.component {
+  import {curriculumApi} from '@/provider'
+  import {currentWeek, currentWeekDay, currentOddEvenWeek} from '@/utils/date-process'
+  export default class CurriculumCard extends wepy.component {
     components = {}
     data = {
-      name: "...", // 姓名
-      identity: "...", // 身份信息
-      allinonecard: '...', // 一卡通余额
-      pe: "...", //跑操次数
-      lecture: "...", //讲座次数
-      srtp: "...", //srtp学分
-      gpa: "...", //gpa
+      term:'...',
+      week:1,
+      list:[]
     }
 
     methods = {
-      deauth:()=>{
-        this.$emit('deauth')
-      }
     }
 
-    hook = {
-        allinonecard:(data)=>{
-          this.allinonecard = data.info.balance
-          this.$apply()
-        },
-        userInfo:(data)=>{
-          this.name = data.name
-          this.identity = data.identity
-          this.$apply()
-        },
-        pe:(data)=>{
-          this.pe = data.count
-          this.$apply()
-        },
-        gpa:(data)=>{
-          this.gpa = data.gpa
-          this.$apply()
-        },
-        srtp:(data)=>{
-          this.srtp = data.info.points
-          this.$apply()
-        },
-        lecture:(data)=>{
-          this.lecture = data.length
-          this.$apply()
-        }
-
+    hook (data) {
+        console.log(data)
     }
 
     update () {
-      allinoneCardApi(this.hook.allinonecard)
-      userInfoApi(this.hook.userInfo)
-      peApi(this.hook.pe)
-      gpaApi(this.hook.gpa)
-      srtpApi(this.hook.srtp)
-      lectureApi(this.hook.lecture)
+      curriculumApi(this.hook)
     }
 
     events = {
@@ -155,6 +118,10 @@
 
     onLoad () {
       
+    }
+
+    renderCurriculum(apiData, week){
+        let list = {}
     }
 
   }
