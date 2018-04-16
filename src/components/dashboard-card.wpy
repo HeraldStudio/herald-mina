@@ -4,7 +4,7 @@
 
 <style lang="less">
   .user-info {
-    padding-bottom: 35rpx;
+    padding-bottom: 30rpx;
     border-bottom-style: solid;
     border-bottom-width: 1rpx;
     border-bottom-color: #f0f0f0;
@@ -22,7 +22,7 @@
     }
   }
   .name {
-    padding-right: 5pt;
+    padding-right: 10rpx;
   }
   .data {
     display: flex;
@@ -33,7 +33,7 @@
       justify-content: space-between;
       align-items: center;
       .value{
-        padding-top:10pt;
+        padding-top:30rpx;
         color: #00abc3;
       }
     }
@@ -64,23 +64,23 @@
       view.data
         view.detail
           text.regular-13.secondary 余额
-          text.regular-14.value {{allinonecard}}
+          text.number.value {{allinonecard}}
         view.divider
         view.detail
           text.regular-13.secondary 跑操
-          text.regular-14.value {{pe}}
+          text.number.value {{pe}}
         view.divider
         view.detail
           text.regular-13.secondary 讲座
-          text.regular-14.value {{lecture}}
+          text.number.value {{lecture}}
         view.divider
         view.detail
           text.regular-13.secondary SRTP
-          text.regular-14.value {{srtp}}
+          text.number.value {{srtp}}
         view.divider
         view.detail
           text.regular-13.secondary 绩点
-          text.regular-14.value {{gpa}}
+          text.number.value {{gpa}}
         
       
 
