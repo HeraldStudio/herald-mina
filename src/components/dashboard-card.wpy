@@ -77,36 +77,67 @@
 
 <script>
   import wepy from 'wepy'
+  import {allinoneCardApi, userInfoApi, peApi, gpaApi, srtpApi, lectureApi} from '@/provider'
 
   export default class DashboardCard extends wepy.component {
     components = {}
     data = {
-      name: "狼剩子", // 姓名
-      identity: "本科生", // 身份信息
-      allinonecard: 187.2, // 一卡通余额
-      pe: 22, //跑操次数
-      lecture: 2, //讲座次数
-      srtp: 8.7, //srtp学分
-      gpa: 3.599, //gpa
+      name: "...", // 姓名
+      identity: "...", // 身份信息
+      allinonecard: '...', // 一卡通余额
+      pe: "...", //跑操次数
+      lecture: "...", //讲座次数
+      srtp: "...", //srtp学分
+      gpa: "...", //gpa
     }
 
     methods = {
 
     }
 
-    update () {
-        // 更新卡片数据
+    hook = {
+        allinonecard:(data)=>{
+          this.allinonecard = data.info.balance
+          this.$apply()
+        },
+        userInfo:(data)=>{
+          this.name = data.name
+          this.identity = data.identity
+          this.$apply()
+        },
+        pe:(data)=>{
+          this.pe = data.count
+          this.$apply()
+        },
+        gpa:(data)=>{
+          this.gpa = data.gpa
+          this.$apply()
+        },
+        srtp:(data)=>{
+          this.srtp = data.info.points
+          this.$apply()
+        },
+        lecture:(data)=>{
+          this.lecture = data.length
+          this.$apply()
+        }
+
     }
 
-    render (data) {
-        // 卡片数据渲染函数
+    update () {
+      allinoneCardApi(this.hook.allinonecard)
+      userInfoApi(this.hook.userInfo)
+      peApi(this.hook.pe)
+      gpaApi(this.hook.gpa)
+      srtpApi(this.hook.srtp)
+      lectureApi(this.hook.lecture)
     }
 
     events = {
     }
 
     onLoad () {
-
+      this.update()
     }
   }
 </script>
