@@ -9,26 +9,27 @@
   .logo {
     width: 180rpx;
     height: 180rpx;
-    padding-top:20pt;
-    padding-bottom:20pt;
+    padding-top:60rpx;
+    padding-bottom:40rpx;
   }
 
   .title{
-   padding-bottom: 15pt;
+   padding-bottom: 35rpx;
   }
   
   .sub-title {
     color: #888888;
-    padding-bottom: 20pt;
+    padding-bottom: 40rpx;
   }
 
   input.regular {
-    margin-bottom: 15pt;
+    margin-bottom: 35rpx;
+    min-width: 450rpx;
   }
 
   .copyright{
-    margin-top: 20pt;
-    font-size: 9pt;
+    margin-top: 40rpx;
+    font-size: 28rpx;
     color: #888888;
   }
 
@@ -49,7 +50,7 @@
       placeholder="统一身份认证密码"
       type="text"
       password=true
-      style="margin-bottom:20pt;"
+      style="margin-bottom:40rpx;"
       confirm-type="登录小猴偷米"
       bindinput="password"
     )
@@ -103,11 +104,12 @@
       check_auth_state:() => {this.checkAuthState()},
       deauth:() => {
         this.isAuthed = false
+        this.$apply()
         deAuth()
       }
     }
 
-    checkAuthState() {
+    checkAuthState(first) {
       console.log('检查')
       let token = wx.getStorageSync('herald-token')
       if (!token) {
@@ -117,12 +119,14 @@
       } else {
         this.isAuthed = true
         this.$apply()
-        this.$emit('auth_success')
+        if(first){ 
+          this.$emit('auth_success')
+        }
       }
     }
 
     onLoad () {
-      this.checkAuthState()
+      this.checkAuthState(true)
       setInterval(()=>{this.checkAuthState()}, 5000)
     }
   }

@@ -36,7 +36,8 @@
         isAuthed:false
     }
   
-    methods = {}
+    methods = {
+    }
   
     events = {
         auth_success:()=>{
@@ -48,15 +49,15 @@
         auth_fail:()=>{
             this.isAuthed = false
             this.$apply()
+        },
+        deauth:()=>{
+            this.$broadcast('deauth')
+            this.isAuthed = false
+            this.$apply()
         }
     }
 
-    deauth () {
-        this.$broadcast('deauth')
-    }
-
     onLoad() {
-      
     }
 
   }

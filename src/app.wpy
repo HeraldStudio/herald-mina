@@ -13,32 +13,32 @@
   }
 
   .polygon{
-    width: 8pt;
-    height: 4pt;
-    padding-bottom: 15pt;
+    width: 16rpx;
+    height: 8rpx;
+    padding-bottom: 35rpx;
   }
 
   .regular-14{
-    font-size:14pt;
+    font-size:32rpx;
     color:#333333;
     line-height:1;
   }
 
   .bold-14{
-    font-size:14pt;
+    font-size:32rpx;
     color:#555555;
     font-weight: bold;
     line-height:1;
   }
 
   .regular-13{
-    font-size:13pt;
+    font-size:30rpx;
     color:#333333;
     line-height:1;
   }
 
   .bold-13{
-    font-size:13pt;
+    font-size:30rpx;
     color:#555555;
     font-weight: bold;
     line-height:1;
@@ -50,9 +50,9 @@
   
   button.primary{
     border-color: #ddfbff;
-    border-radius: 3pt;
-    font-size:14pt;
-    padding: 6pt 14pt 6pt 14pt;
+    border-radius: 8rpx;
+    font-size: 32rpx;
+    padding: 15rpx 25rpx 15rpx 25rpx;
     background-color: #ddfbff;
     font-weight: bold;
     color: #237a86;
@@ -64,10 +64,10 @@
   }
 
   button.warning{
-    border-radius: 3rpx;
-    padding: 3rpx 6rpx 3rpx 6rpx;
+    border-radius: 8rpx;
+    padding: 15rpx 25rpx 15rpx 25rpx;
     background-color: #fff6de;
-    font-size: 14rpx;
+    font-size: 32rpx;
     font-weight: bold;
     color: #876b23;
   }
@@ -75,15 +75,15 @@
   input.regular{
     color:#333333;
     background-color: #fafafa;
-    border-radius: 3pt;
-    font-size:13pt;
-    padding: 6pt 14pt 6pt 14pt;
-    margin-bottom:10pt;
+    border-radius: 8rpx;
+    font-size:30rpx;
+    padding: 15rpx 25rpx 15rpx 25rpx;
+    margin-bottom:35rpx;
   }
 
   .input-placeholder{
     color:#888888;
-    font-size: 13pt;
+    font-size: 30rpx;
   }
 
   .card{

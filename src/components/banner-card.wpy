@@ -1,66 +1,18 @@
 /**
-  主页信息板卡片
+  轮播图卡片
 **/
 
 <style lang="less">
-  .user-info {
-    padding-bottom: 35rpx;
-    border-bottom-style: solid;
-    border-bottom-width: 1rpx;
-    border-bottom-color: #f0f0f0;
-    margin-bottom: 35rpx;
-    display:flex;
-    align-items: baseline;
-    justify-content: space-between;
-    button {
-      margin-right: 0;
-      margin-left: 10rpx;
-    }
-    .button-group{
-      display: flex;
-      justify-self: flex-end;
-    }
-  }
-  .name {
-    padding-right: 5pt;
-  }
-  .data {
-    display: flex;
-    justify-content: space-around;
-    .detail{
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      .value{
-        padding-top:10pt;
-        color: #00abc3;
-      }
-    }
-  }
-
-  .divider{
-    border-right-style: solid;
-      border-right-color:#f0f0f0;
-      border-right-width: 1rpx;
-  }
+  
 </style>
 
 <template lang="pug">
   view.card
-    // text.title 一目了然
-    // image.polygon(src="/resource/images/polygon.png")
     view.content
       view.user-info
-        view
-          text.bold-14.name {{name}}
-          text.regular-13.secondary 东南大学{{identity}}
-        view.button-group
-          button.primary(
-            @tap="deauth"
-            style="background:none;"
-          ) 设置
-          button.primary(@tap="deauth") 注销
+        text.bold-14.name {{name}}
+        text.regular-13.secondary 东南大学{{identity}}
+        button.primary 注销
       view.data
         view.detail
           text.regular-13.secondary 余额
@@ -93,19 +45,11 @@
   export default class DashboardCard extends wepy.component {
     components = {}
     data = {
-      name: "...", // 姓名
-      identity: "...", // 身份信息
-      allinonecard: '...', // 一卡通余额
-      pe: "...", //跑操次数
-      lecture: "...", //讲座次数
-      srtp: "...", //srtp学分
-      gpa: "...", //gpa
+      
     }
 
     methods = {
-      deauth:()=>{
-        this.$emit('deauth')
-      }
+
     }
 
     hook = {
@@ -147,12 +91,11 @@
     }
 
     events = {
-      auth_success:()=>{this.update()}
     }
 
     onLoad () {
-      
+      this.update()
     }
-
+    
   }
 </script>
