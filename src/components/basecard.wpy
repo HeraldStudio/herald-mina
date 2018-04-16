@@ -1,0 +1,36 @@
+<style lang="less">
+
+</style>
+
+<template lang="pug">
+  view.card
+    text.title 卡片标题
+    image.polygon(src="/resource/images/polygon.png")
+    
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class BaseCard extends wepy.component {
+    components = {}
+    data = {}
+
+    methods = {}
+
+    update () {
+        // 更新卡片数据
+    }
+
+    render (data) {
+        // 卡片数据渲染函数
+    }
+    events = {
+      auth_success:()=>{this.update()}
+    }
+
+    onLoad () {
+
+    }
+  }
+</script>

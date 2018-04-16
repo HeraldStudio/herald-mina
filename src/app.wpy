@@ -43,6 +43,10 @@
     font-weight: bold;
     line-height:1;
   }
+
+  .secondary{
+    color:#888888;
+  }
   
   button.primary{
     border-color: #ddfbff;
@@ -82,6 +86,35 @@
     font-size: 13pt;
   }
 
+  .card{
+    padding:20pt 0pt 20pt 0pt;
+    border-bottom-style: solid;
+    border-bottom-color: #f0f0f0;
+    border-bottom-width: 1pt;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+    .title{
+      .bold-14;
+      padding-bottom: 10pt;
+      align-self: center;
+    }
+    .polygon{
+      .polygon;
+      padding-bottom: 20pt;
+      align-self: center;
+    }
+    .content{
+      padding: 0pt 15pt 0pt 15pt;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+
 </style>
 
 <script>
@@ -97,9 +130,9 @@ export default class extends wepy.app {
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarBackgroundColor: '#00abc3',
+      navigationBarTitleText: '小猴偷米',
+      navigationBarTextStyle: 'white'
     },
     tabBar: {
       color:'#888888',

@@ -89,4 +89,4 @@ function fetchUIdata(url, method, data, hook) {
     })
 }
 
-export {auth, fetchUIdata, request}
+export {auth, deAuth, fetchUIdata, request}

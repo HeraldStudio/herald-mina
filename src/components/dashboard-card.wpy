@@ -1,0 +1,112 @@
+/**
+  主页信息板卡片
+**/
+
+<style lang="less">
+  .user-info {
+    padding-bottom: 10pt;
+    border-bottom-style: solid;
+    border-bottom-width: 1pt;
+    border-bottom-color: #f0f0f0;
+    margin-bottom: 15pt;
+    display:flex;
+    align-items: baseline;
+    button {
+      justify-self: flex-end;
+      margin-right: 0pt;
+    }
+  }
+  .name {
+    padding-right: 5pt;
+  }
+  .data {
+    display: flex;
+    justify-content: space-around;
+    .detail{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      .value{
+        padding-top:10pt;
+        color: #00abc3;
+      }
+    }
+  }
+
+  .divider{
+    border-right-style: solid;
+      border-right-color:#f0f0f0;
+      border-right-width: 1pt;
+  }
+</style>
+
+<template lang="pug">
+  view.card
+    // text.title 一目了然
+    // image.polygon(src="/resource/images/polygon.png")
+    view.content
+      view.user-info
+        text.bold-14.name {{name}}
+        text.regular-13.secondary 东南大学{{identity}}
+        button.primary 注销
+      view.data
+        view.detail
+          text.regular-13.secondary 余额
+          text.regular-14.value {{allinonecard}}
+        view.divider
+        view.detail
+          text.regular-13.secondary 跑操
+          text.regular-14.value {{pe}}
+        view.divider
+        view.detail
+          text.regular-13.secondary 讲座
+          text.regular-14.value {{lecture}}
+        view.divider
+        view.detail
+          text.regular-13.secondary SRTP
+          text.regular-14.value {{srtp}}
+        view.divider
+        view.detail
+          text.regular-13.secondary 绩点
+          text.regular-14.value {{gpa}}
+        
+      
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class DashboardCard extends wepy.component {
+    components = {}
+    data = {
+      name: "狼剩子", // 姓名
+      identity: "本科生", // 身份信息
+      allinonecard: 187.2, // 一卡通余额
+      pe: 22, //跑操次数
+      lecture: 2, //讲座次数
+      srtp: 8.7, //srtp学分
+      gpa: 3.599, //gpa
+    }
+
+    methods = {
+
+    }
+
+    update () {
+        // 更新卡片数据
+    }
+
+    render (data) {
+        // 卡片数据渲染函数
+    }
+
+    events = {
+    }
+
+    onLoad () {
+
+    }
+  }
+</script>

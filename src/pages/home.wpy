@@ -6,44 +6,58 @@
   align-items: center;
   height: 100%;
 }
+
 </style>
 
 <template lang="pug">
   view.body
     auth
+    view.body(wx-if="{{isAuthed}}")
+        DashboardCard
 </template>
 
 <script>
   import wepy from 'wepy'
   import Auth from '@/components/auth'
-
+  
+  import DashboardCard from '@/components/dashboard-card'
   export default class Index extends wepy.page {
+
     config = {
-      navigationBarTitleText: '小猴偷米'
+        navigationBarTitleText: '小猴偷米'
     }
+
     components = {
-      auth:Auth
+        auth:Auth,
+        DashboardCard
     }
-
-    data = {}
-
-    computed = {
-      now () {
-        return +new Date()
-      }
+    
+    data = {
+        isAuthed:false
     }
-
+  
     methods = {}
-
+  
     events = {
-      auth_success:()=>{
-        this.$broadcast('auth_success')
-          console.log('认证成功');
+        auth_success:()=>{
+            this.$broadcast('auth_success')
+            this.isAuthed = true
+            this.$apply()
+            console.log('认证成功');
+        },
+        auth_fail:()=>{
+            this.isAuthed = false
+            this.$apply()
         }
     }
 
-    onLoad() {
-
+    deauth () {
+        this.$broadcast('deauth')
     }
+
+    onLoad() {
+      
+    }
+
   }
 </script>
