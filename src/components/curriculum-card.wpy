@@ -44,11 +44,116 @@
     }
   }
 
-  .divider{
-    border-right-style: solid;
-      border-right-color:#f0f0f0;
-      border-right-width: 1rpx;
+  .con {
+      position: relative;
+      width: 680rpx;
+      height: 130rpx;
   }
+
+  .background{
+      position: absolute;
+      left:30rpx;
+      top:40rpx;
+      background-color: #f0f0f0;
+      width: 620rpx;
+      height: 60rpx;
+      z-index: 0;
+      border-radius: 8rpx;
+      overflow: hidden;
+  }
+
+  .divider{
+      border-bottom-style: solid;
+      border-bottom-color:#f0f0f0;
+      border-bottom-width: 1rpx;
+  }
+
+  .time-label{
+      z-index: 3;
+      position: absolute;
+      top:0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text {
+          background-color: #EB5757;
+          font-size: 24rpx;
+          color: #ffffff;
+          border-radius: 8rpx;
+          padding: 0 12rpx 0 8rpx;
+          text-align: center;
+      }
+
+      .top {
+            height: 0;
+            width: 0;
+            border-top: 8rpx solid #EB5757;
+            border-left: 8rpx solid transparent;
+            border-right: 8rpx solid transparent;
+            border-bottom: 8rpx solid transparent;
+      }
+      .line {
+        width: 4rpx;
+        background-color:  #EB5757;
+        height: 65rpx;
+        position: relative;
+        top:-10rpx;
+      }
+
+      .bottom {
+            position: relative;
+            top:-20rpx;
+            height: 0;
+            width: 0;
+            border-bottom: 10rpx solid #EB5757;
+            border-left: 8rpx solid transparent;
+            border-right: 8rpx solid transparent;
+            border-top: 8rpx solid transparent;
+      }
+  }
+
+  .time-line-item{
+            position: absolute;
+            height: 120rpx;
+            background-color: #00abc3;
+      }
+
+    .no-class{
+        border-top:solid 1rpx #f0f0f0;
+        margin-top: 35rpx;
+        padding-top: 35rpx;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text {
+
+        }
+    }
+    .course{
+        display: flex;
+        flex-direction: column;
+        border-top: solid 1rpx #f0f0f0;
+        margin-top: 30rpx;
+        padding: 30rpx 0 0 0;
+        .name {
+            padding-bottom: 30rpx;
+            display: flex;
+            align-items: center;
+        }
+        .detail{
+            padding: 0 0 0 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .dot{
+            width: 15rpx;
+            height: 15rpx;
+            background-color: #648723;
+            border-radius: 100rpx;
+            margin-right: 15rpx;
+            margin-left: 5rpx;
+        }
+    }
 </style>
 
 <template lang="pug">
@@ -56,35 +161,31 @@
     text.title 课程表
     image.polygon(src="/resource/images/polygon.png")
     view.content
-      view.user-info
-        view
-          text.bold-14.name {{name}}
-          text.regular-13.secondary 东南大学{{identity}}
-        view.button-group
-          button.primary(@tap="deauth") 
-            image.settings(src="../resource/images/settings.svg")
-          button.primary(@tap="deauth") 注销
-      view.data
-        view.detail
-          text.regular-13.secondary 余额
-          text.number.value {{allinonecard}}
-        view.divider
-        view.detail
-          text.regular-13.secondary 跑操
-          text.number.value {{pe}}
-        view.divider
-        view.detail
-          text.regular-13.secondary 讲座
-          text.number.value {{lecture}}
-        view.divider
-        view.detail
-          text.regular-13.secondary SRTP
-          text.number.value {{srtp}}
-        view.divider
-        view.detail
-          text.regular-13.secondary 绩点
-          text.number.value {{gpa}}
-        
+        view.con
+            view.background 
+                repeat(for="{{timeLine}}")
+                    view.time-line-item(style="left:{{item.left}}rpx;width:{{item.width}}rpx")
+            view.time-label(wx-if="{{showTimeLabel}}"  style="left:{{timeLabelPosition}}rpx;")
+                text {{timeLabel}}
+                view.top
+                view.line
+                view.bottom
+        view.no-class(wx-if="{{comingList.length === 0}}")
+            text.regular-13.secondary {{tips}}
+        repeat(for="{{comingList}}")
+            view.course
+                view.name
+                    view.dot
+                    text.regular-14 {{item.courseName}}
+                view.regular-13.secondary.detail
+                    text {{item.location}}
+                    text {{item.beginPeriod}}-{{item.endPeriod}}节
+                    text {{item.teacherName}}
+                    text {{item.credit}}学分
+                    text {{item.beginWeek}}-{{item.endWeek}}周
+                    
+            
+                
       
 
 </template>
@@ -98,31 +199,210 @@
     data = {
       term:'...',
       week:1,
-      list:[]
+      list:[],
+      showTimeLabel:false,
+      timeLabelPosition:0,
+      timeLabel:'...',
+      timeLine:[],
+      comingList:[],
+      tips:''
     }
 
     methods = {
     }
 
+    curriculumStartTime = {
+        "1":{
+            hour:8,
+            minute:0
+        },
+        "2":{
+            hour:8,
+            minute:50
+        },
+        "3":{
+            hour:9,
+            minute:50
+        },
+        "4":{
+            hour:10,
+            minute:40
+        },
+        "5":{
+            hour:11,
+            minute:30
+        },
+        "6":{
+            hour:14,
+            minute:0
+        },
+        "7":{
+            hour:14,
+            minute:50
+        },
+        "8":{
+            hour:15,
+            minute:50
+        },
+        "9":{
+            hour:16,
+            minute:40
+        },
+        "10":{
+            hour:17,
+            minute:30
+        },
+        "11":{
+            hour:18,
+            minute:30
+        },
+        "12":{
+            hour:19,
+            minute:20
+        },
+        "13":{
+            hour:20,
+            minute:5
+        }
+    }
+
+    curriculumEndTime = {
+        "1":{
+            hour:8,
+            minute:45
+        },
+        "2":{
+            hour:9,
+            minute:35
+        },
+        "3":{
+            hour:10,
+            minute:35
+        },
+        "4":{
+            hour:11,
+            minute:25
+        },
+        "5":{
+            hour:12,
+            minute:15
+        },
+        "6":{
+            hour:14,
+            minute:45
+        },
+        "7":{
+            hour:15,
+            minute:35
+        },
+        "8":{
+            hour:16,
+            minute:35
+        },
+        "9":{
+            hour:17,
+            minute:25
+        },
+        "10":{
+            hour:18,
+            minute:15
+        },
+        "11":{
+            hour:19,
+            minute:15
+        },
+        "12":{
+            hour:20,
+            minute:5
+        },
+        "13":{
+            hour:20,
+            minute:55
+        }
+    }
+
+    renderCurriculum (apiData, week) {
+        let list = {} //当前周的所有课表
+        for (let i = 1; i < 8; i++) list[''+i] = []
+        let thisWeekCurriculum = apiData.curriculum.filter((course)=>{
+            let oddEven = week%2 ? 'odd' : 'even'
+            oddEven = course.flip === 'none' || course.flip === oddEven
+            let startEnd = course.beginWeek <= week && week <= course.endWeek
+            return oddEven && startEnd
+        })
+        thisWeekCurriculum.map((course)=>{
+            list[''+course.dayOfWeek].push(course)
+        })
+        let today = (new Date()).getDay()
+        if (today === 0) {today = 7}
+
+        if (today === 6 || today === 7) {
+            this.tips = '今天没有课~记得合理安排时间哦！'
+        } else {
+            this.tips = '今天的课都上完啦！'
+        }
+        list[''+today].sort((a,b)=>{return a.beginPeriod - b.beginPeriod})
+        this.timeLine = list[''+today].map((course)=>{
+            let displayCourse = {}
+            let start = this.curriculumStartTime[''+course.beginPeriod]
+            let end = this.curriculumEndTime[''+course.endPeriod]
+            displayCourse.left = 615 * ((start.hour - 8) * 60 + (start.minute))/((21 - 8) * 60)
+            displayCourse.width = 615 * ((end.hour * 60 + end.minute) - (start.hour * 60 + start.minute))/((21 - 8) * 60)
+            return displayCourse
+        })
+
+        this.comingList = list[''+today].filter((course)=>{
+            let now = new Date()
+            let courseEnd = this.curriculumEndTime[''+course.endPeriod]
+            courseEnd = courseEnd.hour * 60 + courseEnd.minute
+            now = now.getHours() * 60 + now.getMinutes()
+            console.log(courseEnd, now)
+            return courseEnd > now
+        })
+
+
+        console.log(this.comingList)
+        this.$apply()
+    }
+
     hook (data) {
-        console.log(data)
+        console.log(this.renderCurriculum(data,8))
     }
 
     update () {
-      curriculumApi(this.hook)
+      curriculumApi(this.hook.bind(this))
     }
 
     events = {
       auth_success:()=>{this.update()}
     }
 
-    onLoad () {
-      
+    refreshTimeLabel () {
+        let now = new Date()
+          let hour = now.getHours()
+          let minute = now.getMinutes()
+          if(hour >= 8 && hour <= 20){
+            let hourText = hour >= 10 ? '' + hour : '0' + hour
+            let minuteText = minute >= 10 ? '' + minute : '0' + minute
+            this.timeLabel = `${hourText}:${minuteText}`
+            this.showTimeLabel = true
+            this.timeLabelPosition = 615 * ((hour - 8) * 60 + minute)/((21 - 8) * 60)
+          } else {
+              this.showTimeLabel = false
+          }
+          this.$apply()
     }
 
-    renderCurriculum(apiData, week){
-        let list = {}
+    onLoad () {
+        
+        this.refreshTimeLabel()
+      setInterval(()=>{
+          this.refreshTimeLabel()
+      },60000)
+
+          
     }
+
 
   }
 </script>

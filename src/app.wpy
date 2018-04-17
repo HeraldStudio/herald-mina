@@ -107,9 +107,15 @@
       padding-bottom: 35rpx;
       align-self: center;
     }
+    .subtitle{
+      .regular-14;
+      color: #888888;
+      padding-bottom: 35rpx;
+      align-self: center;
+    }
     .polygon{
       .polygon;
-      padding-bottom: 40rpx;
+      padding-bottom: 20rpx;
       align-self: center;
     }
     .content{
