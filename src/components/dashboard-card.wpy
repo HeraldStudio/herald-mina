@@ -165,7 +165,7 @@
     }
 
     events = {
-      auth_success:()=>{this.update()}
+      update: () => this.update()
     }
 
     onLoad () {

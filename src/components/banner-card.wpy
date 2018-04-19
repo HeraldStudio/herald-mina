@@ -3,36 +3,33 @@
 **/
 
 <style lang="less">
-  
+  .banner{
+    width: 750rpx;
+    swiper{
+      height: 300rpx;
+    }
+    swiper-item{
+      view{
+        height: 300rpx;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      image{
+        width: 750rpx;
+        height: 300rpx;
+      }
+    }
+  }
 </style>
 
 <template lang="pug">
-  view.card
-    view.content
-      view.user-info
-        text.bold-14.name {{name}}
-        text.regular-13.secondary 东南大学{{identity}}
-        button.primary 注销
-      view.data
-        view.detail
-          text.regular-13.secondary 余额
-          text.regular-14.value {{allinonecard}}
-        view.divider
-        view.detail
-          text.regular-13.secondary 跑操
-          text.regular-14.value {{pe}}
-        view.divider
-        view.detail
-          text.regular-13.secondary 讲座
-          text.regular-14.value {{lecture}}
-        view.divider
-        view.detail
-          text.regular-13.secondary SRTP
-          text.regular-14.value {{srtp}}
-        view.divider
-        view.detail
-          text.regular-13.secondary 绩点
-          text.regular-14.value {{gpa}}
+  view.banner
+    swiper(autoplay="true" circular="false")
+      repeat(for="{{list}}")
+        swiper-item(@tap="ontap" data-url="{{item.url}}")
+          view
+            image(src="{{item.pic}}")
         
       
 
@@ -40,61 +37,44 @@
 
 <script>
   import wepy from 'wepy'
-  import {allinoneCardApi, userInfoApi, peApi, gpaApi, srtpApi, lectureApi} from '@/provider'
+  import {bannerApi} from '@/provider'
 
-  export default class DashboardCard extends wepy.component {
+  export default class BannerCard extends wepy.component {
     components = {}
     data = {
-      
+      list:[]
     }
 
     methods = {
-
+      ontap:(event) => {
+        let url = event.currentTarget.dataset.url
+        if (url) {
+          this.$parent.$preload('wechatPush', url)
+          this.$parent.$navigate('/pages/wechat-push');
+        }
+      }
     }
 
-    hook = {
-        allinonecard:(data)=>{
-          this.allinonecard = data.info.balance
-          this.$apply()
-        },
-        userInfo:(data)=>{
-          this.name = data.name
-          this.identity = data.identity
-          this.$apply()
-        },
-        pe:(data)=>{
-          this.pe = data.count
-          this.$apply()
-        },
-        gpa:(data)=>{
-          this.gpa = data.gpa
-          this.$apply()
-        },
-        srtp:(data)=>{
-          this.srtp = data.info.points
-          this.$apply()
-        },
-        lecture:(data)=>{
-          this.lecture = data.length
-          this.$apply()
-        }
-
+    hook(data){
+      // 保留属于微信推送内容和没有链接的图片
+      data = data.filter((item) => {
+        return item.url === '' || /mp.weixin.qq.com/.test(item.url)
+      })
+      this.list = data.slice(0)
+      this.$apply()
     }
 
     update () {
-      allinoneCardApi(this.hook.allinonecard)
-      userInfoApi(this.hook.userInfo)
-      peApi(this.hook.pe)
-      gpaApi(this.hook.gpa)
-      srtpApi(this.hook.srtp)
-      lectureApi(this.hook.lecture)
+      bannerApi(this.hook.bind(this))
     }
 
     events = {
+      update:() => {
+        this.update()
+      }
     }
 
     onLoad () {
-      this.update()
     }
     
   }

@@ -13,6 +13,7 @@
   view.body
     auth
     view.body(wx-if="{{isAuthed}}")
+        BannerCard
         DashboardCard
         CurriculumCard
 </template>
@@ -20,9 +21,10 @@
 <script>
   import wepy from 'wepy'
   import Auth from '@/components/auth'
-  
+  import BannerCard from '@/components/banner-card'
   import DashboardCard from '@/components/dashboard-card'
   import CurriculumCard from '@/components/curriculum-card'
+  
   export default class Index extends wepy.page {
 
     config = {
@@ -32,7 +34,8 @@
     components = {
         auth:Auth,
         DashboardCard,
-        CurriculumCard
+        CurriculumCard,
+        BannerCard
     }
     
     data = {
@@ -44,7 +47,7 @@
   
     events = {
         auth_success:()=>{
-            this.$broadcast('auth_success')
+            this.$broadcast('update')
             this.isAuthed = true
             this.$apply()
             console.log('认证成功');
@@ -61,8 +64,8 @@
     }
 
     onLoad() {
-        this.$preload('wechatPush','https://mp.weixin.qq.com/s/bH6YHgwGFDysoniagWQPEA')
-        this.$navigate('./wechat-push');
+        //this.$preload('wechatPush','https://mp.weixin.qq.com/s/bH6YHgwGFDysoniagWQPEA')
+        //this.$navigate('./wechat-push');
     }
 
   }

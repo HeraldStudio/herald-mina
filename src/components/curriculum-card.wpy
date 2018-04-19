@@ -332,17 +332,14 @@
             let courseEnd = this.curriculumEndTime[''+course.endPeriod]
             courseEnd = courseEnd.hour * 60 + courseEnd.minute
             now = now.getHours() * 60 + now.getMinutes()
-            console.log(courseEnd, now)
             return courseEnd > now
         })
 
-
-        console.log(this.comingList)
         this.$apply()
     }
 
     hook (data) {
-        console.log(this.renderCurriculum(data,8))
+        this.renderCurriculum(data, 8)
     }
 
     update () {
@@ -350,7 +347,7 @@
     }
 
     events = {
-      auth_success:()=>{this.update()}
+      update: () => this.update()
     }
 
     refreshTimeLabel () {

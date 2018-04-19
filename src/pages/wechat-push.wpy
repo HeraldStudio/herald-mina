@@ -252,9 +252,11 @@ export default class Index extends wepy.page {
         html = '<div class="font-size: 80%">' + html + '</div>'
         this.html = html
         this.$apply()
+        wx.hideLoading()
     }
 
     onLoad(params, data) {
+        wx.showLoading({title:'正在加载'})
         this.url = data.preload.wechatPush
         wx.request({
             url: this.url,
