@@ -3,30 +3,6 @@
 **/
 
 <style lang="less">
-  .user-info {
-    padding-bottom: 30rpx;
-    border-bottom-style: solid;
-    border-bottom-width: 1rpx;
-    border-bottom-color: #f0f0f0;
-    margin-bottom: 35rpx;
-    display:flex;
-    align-items: baseline;
-    justify-content: space-between;
-    button {
-      margin-right: 0;
-      margin-left: 10rpx;
-    }
-    .button-group{
-      display: flex;
-      justify-self: flex-end;
-    }
-    .settings{
-      color:#00abc3;
-      width: 32rpx;
-      height: 32rpx;
-      
-    }
-  }
   .name {
     padding-right: 10rpx;
   }

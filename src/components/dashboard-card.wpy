@@ -5,10 +5,10 @@
 <style lang="less">
   .user-info {
     padding-bottom: 30rpx;
+    margin-bottom: 20rpx;
     border-bottom-style: solid;
     border-bottom-width: 1rpx;
     border-bottom-color: #f0f0f0;
-    margin-bottom: 35rpx;
     display:flex;
     align-items: baseline;
     justify-content: space-between;
@@ -29,6 +29,7 @@
   }
   .name {
     padding-right: 10rpx;
+    font-size: 38rpx;
   }
   .data {
     display: flex;
@@ -38,21 +39,35 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
+      flex: 1 1 0;
+      padding-top: 15rpx;
+      padding-bottom: 15rpx;
       .value{
         padding-top:30rpx;
       }
     }
+    .detail:active{
+      background-color:#f0f0f0;
+    }
   }
-
+  #dashboard.card{
+    padding-bottom:25rpx;
+  }
   .divider{
-    border-right-style: solid;
+      
+      border-right-style: solid;
       border-right-color:#f0f0f0;
       border-right-width: 1rpx;
+  }
+
+  button.primary{
+    font-size: 28rpx;
+    padding: 15rpx 20rpx 5rpx 20rpx;
   }
 </style>
 
 <template lang="pug">
-  view.card
+  view.card#dashboard
     // text.title 一目了然
     // image.polygon(src="/resource/images/polygon.png")
     view.content
