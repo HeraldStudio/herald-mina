@@ -138,7 +138,8 @@ export default class extends wepy.app {
     pages: [
       'pages/home',
       'pages/activity',
-      'pages/notification'
+      'pages/notification',
+      'pages/wechat-push'
     ],
     window: {
       backgroundTextStyle: 'light',

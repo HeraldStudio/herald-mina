@@ -1,0 +1,270 @@
+<style lang="less">
+    .wechat-push {
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .title {
+            padding: 35rpx 35rpx 0;
+            text-align: justify;
+            font-size: 38rpx;
+        }
+        .horizontal {
+            background: #fff;
+            padding: 30rpx 35rpx;
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 28rpx;
+            color: #666;
+        }
+        .horizontal:first-of-type {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            border-bottom: 2rpx solid #f4f4f4;
+        }
+        .horizontal:last-of-type {
+            border-top: 2rpx solid #f4f4f4;
+        }
+        .author {
+            color: #333;
+            margin-right: 20rpx;
+        }
+        .author-id {
+            color: #999;
+            margin-right: 20rpx;
+        }
+        .qr {
+            width: 32rpx;
+            height: 32rpx;
+            vertical-align: middle;
+            margin-right: 20rpx;
+        }
+        .original {
+            padding-left: 10rpx;
+            font-size: 28rpx;
+            color: #3688ff;
+            display: inline-block;
+        }
+        .info {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .headPhoto {
+            width: 100%;
+            height: 375rpx;
+        }
+        .avatar {
+            display: block;
+            width: 180rpx;
+            height: 180rpx;
+            border-radius: 50%;
+            margin-top: -80rpx;
+            margin-bottom: 35rpx;
+            border: 3rpx solid #fff;
+        }
+        .name {
+            font-size: 32rpx;
+            padding: 0 30rpx;
+            color: #333;
+            vertical-align: middle;
+        }
+        .type {
+            display: inline-block;
+            background: #00b4ff;
+            color: #fff;
+            font-size: 24rpx;
+            padding: 3rpx 15rpx;
+            margin-left: 15rpx;
+        }
+        .description {
+            font-size: 28rpx;
+            padding: 10rpx 30rpx;
+            color: #666;
+            margin-bottom: 20rpx;
+        }
+        .intro {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 30rpx;
+        }
+        .subtitle {
+            display: block;
+            font-size: 28rpx;
+            border: 2rpx solid #333;
+            color: #333;
+            background: #fff;
+            padding: 5rpx 15rpx;
+            margin: 65rpx 0 25rpx;
+        }
+        .intro-text {
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 28rpx;
+            color: #333;
+            padding: 20rpx 25rpx;
+            text-align: justify;
+            text-indent: 2em;
+            line-height: 1.8em;
+        }
+        .pictures {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            padding: 20rpx;
+        }
+        .pictures .picture {
+            width: 220rpx;
+            height: 220rpx;
+            margin: 3rpx;
+        }
+        .register {
+            color: #00b4ff;
+        }
+        .markdown-container {
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        rich-text {
+            width: 100%;
+            padding: 40rpx;
+            border-top: 20rpx solid #f4f4f4;
+            box-sizing: border-box;
+            overflow: hidden;
+            line-height: 1.7em;
+            text-align: justify;
+        }
+    }
+</style>
+
+<template>
+<view class="wechat-push container">
+    <text class="title">{{ title }}</text>
+    <view class="horizontal" wx:if="{{ html }}" catchtap="viewimg" data-url="{{ qrcode }}" data-urls="{{ [qrcode] }}">
+        <text class="author" wx:if="{{ author }}">{{ author }}</text>
+        <text class="author-id" wx:if="{{ authorId }}">{{ authorId }}</text>
+        <image class="qr" wx:if="{{ qrcode }}" src="/resource/images/qrcode.png" />
+        <text class="author-id" wx:if="{{ qrcode }}">保存二维码扫描关注</text>
+    </view>
+    <rich-text wx:if="{{ html }}" nodes="{{ html }}" catchlongpress="onImageLongTap" />
+    <view class="horizontal" wx:if="{{ html }}">
+        <text class="declare">以上为推送预览，部分功能可能受限</text>
+        <text class="original" catchtap="open" data-url="{{ url }}">复制链接</text>
+    </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class Index extends wepy.page {
+
+    data = {
+        url: '',
+        title: '',
+        author: '',
+        authorId: '',
+        qrcode: '',
+        html: ''
+
+    }
+    config = {
+        navigationBarTitleText: '小猴偷米'
+    }
+
+    methods = {
+        open: (event) => {
+            let data = this.url
+            // 对于前面都不匹配的情况，进入复制链接流程
+            wx.setClipboardData({
+                data
+            })
+            wx.showToast({
+                title: '链接已复制'
+            })
+        },
+        viewimg: function (event) {
+            let current = event.currentTarget.dataset.current
+            let urls = event.currentTarget.dataset.urls || [current]
+            let pathmap = event.currentTarget.dataset.pathmap
+            if (pathmap) {
+                let paths = pathmap.split('.')
+                for (let route of paths) {
+                    urls = urls.map(k => k[route]).filter(k => k)
+                }
+            }
+            //wx.$.log('viewimg', current || 'default', urls ? 'URLs:' : '', urls || '')
+            wx.previewImage({
+                current: current,
+                urls: urls
+            })
+        },
+    }
+
+
+    render(res) {
+        let titleMatch = /[^.]rich_media_title[^>]*>\s*([^<]*)\s*</img.exec(res.data)
+        if (titleMatch) {
+            this.title = titleMatch[1]
+        }
+        let authorMatch = /[^.]rich_media_meta_nickname[^>]*>\s*([^<]*)\s*</img.exec(res.data)
+        if (authorMatch) {
+            this.author = authorMatch[1]
+        }
+        let authorIdMatch = /微信号[\s\S]*?profile_meta_value">([^<]*)</img.exec(res.data)
+        if (authorIdMatch) {
+            this.authorId = authorIdMatch[1]
+        }
+
+        let qrcodeMatch = /var msg_link = "(.+)";/.exec(res.data)
+        if (qrcodeMatch) {
+            qrcodeMatch = qrcodeMatch[1].replace(/\\x26amp;/g, '&')
+            qrcodeMatch = /(__biz=.*?)&chksm=/.exec(qrcodeMatch)
+            if (qrcodeMatch) {
+                qrcodeMatch = 'https://mp.weixin.qq.com/mp/qrcode?scene=10000004&size=102&' + qrcodeMatch
+                this.qrcode = qrcodeMatch
+            }
+        }
+
+        let html = res.data
+            .replace(/<!([^<>]*<[^<>]*>)*[^<>]*>/g, '')
+            .replace(/<(script|style|title|h2)[\s\S]*?<\/\s*\1>/img, '')
+            .replace(/<(iframe)[\s\S]*?<\/\s*\1>/img, '<p style="font-size: 12px">小程序不支持此控件，请到文末复制链接打开</p>')
+            .replace(/(<div\s+id="meta_content"[^>]*>)[\s\S]*?(<div\s+class="rich_media_content)/img, '$1$2')
+            .replace(/([>^])\s+([<$])/g, '$1$2')
+            .replace(/[\r\n]/g, '')
+            .replace(/<\/?\s*(html|head|body|meta|link)(?=[^A-Za-z\-]).*?>/img, '')
+            .replace(/(<\/?\s*)section(?=[^A-Za-z\-])(.*?>)/img, '$1p$2')
+            .replace(/(<\/?\s*)em(?=[^A-Za-z\-])(.*?>)/img, '$1strong$2')
+            .replace(/(<img[^>]+)data-src=/img, '$1 src=')
+            .replace(/(<img[^>]+style=")([^>]+>)/img, '$1max-width: 100%;$2')
+            .replace(/(<img[^>]*?)(\/?>)/img, '$1 style="max-width: 100%;"$2')
+            // .replace(/width:\s*([\d\.]+px|auto)(;?)/img, 'max-width: 100%;$2')
+            .replace(/(width|height)="[^"]+"/img, '')
+            .replace(/<a[^>]*?>阅读原文<\/\s*a>/img, '')
+
+        html = '<div class="font-size: 80%">' + html + '</div>'
+        this.html = html
+        this.$apply()
+    }
+
+    onLoad(params, data) {
+        this.url = data.preload.wechatPush
+        wx.request({
+            url: this.url,
+            method: 'GET',
+            success: (res) => {
+                this.render(res)
+            }
+        })
+    }
+
+}
+</script>
+

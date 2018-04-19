@@ -61,6 +61,8 @@
     }
 
     onLoad() {
+        this.$preload('wechatPush','https://mp.weixin.qq.com/s/bH6YHgwGFDysoniagWQPEA')
+        this.$navigate('./wechat-push');
     }
 
   }
