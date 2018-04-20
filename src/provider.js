@@ -112,11 +112,17 @@ function fetchUIdata(url, method, data, hook) {
     //缓存Key格式：herald-mina:url:method
     let key = `herald-mina:${url}:${method}`
     let cache = wx.getStorageSync(key)
-    if (cache) { hook(cache) } // 缓存有效则渲染缓存
+    //cache.cache = true
+    if (cache) { 
+        cache.cache = true
+        hook(cache);
+        console.log(`${key}缓存命中`) 
+    } // 缓存有效则渲染缓存
     //Step2.发起请求
     request(url, method, data).then((data)=>{
         if (data) {
             try{
+                data.cache = false
                 hook(data)
             } catch(e) {
                 //由于此时hook可能已经失效，必须try...catch

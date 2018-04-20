@@ -47,9 +47,9 @@
   
     events = {
         auth_success:()=>{
-            this.$broadcast('update')
             this.isAuthed = true
             this.$apply()
+            setTimeout(() => this.$broadcast('update'),0)
             console.log('认证成功');
         },
         auth_fail:()=>{
@@ -62,10 +62,13 @@
             this.$apply()
         }
     }
-
+    onPullDownRefresh() {
+        this.$broadcast('update')
+        wx.vibrateShort({})
+        wx.stopPullDownRefresh()
+    }
     onLoad() {
-        //this.$preload('wechatPush','https://mp.weixin.qq.com/s/bH6YHgwGFDysoniagWQPEA')
-        //this.$navigate('./wechat-push');
+
     }
 
   }

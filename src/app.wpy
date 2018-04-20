@@ -145,7 +145,11 @@ export default class extends wepy.app {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#00abc3',
       navigationBarTitleText: '小猴偷米',
-      navigationBarTextStyle: 'white'
+      navigationBarTextStyle: 'white',
+      enablePullDownRefresh: true,
+      backgroundColor:'#ffffff',
+      onReachBottomDistance: 50,
+      backgroundTextStyle: 'dark'
     },
     tabBar: {
       color:'#888888',

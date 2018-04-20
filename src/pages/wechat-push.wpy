@@ -258,6 +258,7 @@ export default class Index extends wepy.page {
     onLoad(params, data) {
         wx.showLoading({title:'正在加载'})
         this.url = data.preload.wechatPush
+        this.url = this.url.replace(/http:/i, 'https:')
         wx.request({
             url: this.url,
             method: 'GET',
