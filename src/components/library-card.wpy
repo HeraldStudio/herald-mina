@@ -1,0 +1,74 @@
+/**
+  图书馆卡片
+**/
+
+<style lang="less">
+  #library {
+      .item{
+
+      }
+  }
+</style>
+
+<template lang="pug">
+  view#library.card
+    text.title 图书馆
+    image.polygon(src="/resource/images/polygon.png")
+    view.content
+        repeat(for="{{library}}")
+            view.item
+                text {{item.name}}
+                text 借阅时间：{{item.borrowDate.year}}-{{item.borrowDate.month}}-{{item.borrowDate.day}}
+                text 应还时间：{{item.returnDate.year}}-{{item.returnDate.month}}-{{item.returnDate.day}}
+        
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import {libraryApi} from '@/provider'
+  export default class LibraryCard extends wepy.component {
+    components = {}
+    data = {
+        library:[]
+    }
+
+    methods = {
+    }
+
+    hook (data) {
+        let library = data.map((item) => {
+            let borrowDate = new Date()
+            borrowDate.setTime(item.borrowDate)
+            let returnDate = new Date()
+            returnDate.setTime(item.returnDate)
+            item.borrowDate = {
+                year:borrowDate.getFullYear(),
+                month:borrowDate.getMonth(),
+                day:borrowDate.getDate()
+            }
+            item.returnDate = {
+                year:returnDate.getFullYear(),
+                month:returnDate.getMonth(),
+                dat:returnDate.getDate()
+            }
+            return item
+        })
+        this.library = library
+        this.$apply()
+    }
+
+    update () {
+      libraryApi(this.hook.bind(this))
+    }
+
+    events = {
+      update: () => this.update()
+    }
+
+    onLoad () { 
+    
+    }
+
+
+  }
+</script>

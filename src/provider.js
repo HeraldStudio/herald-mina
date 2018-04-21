@@ -177,6 +177,10 @@ function bannerApi(hook){
     fetchUIdata('/api/banner', 'GET', null, hook)
 }
 
+function libraryApi(hook){
+    fetchUIdata('/api/library', 'GET', null, hook)
+}
+
 export {auth, deAuth, fetchUIdata, request, 
     allinoneCardApi, userInfoApi, peApi, gpaApi, lectureApi, srtpApi,
-    curriculumApi, bannerApi}
+    curriculumApi, bannerApi, libraryApi}

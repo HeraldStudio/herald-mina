@@ -16,6 +16,7 @@
         BannerCard
         DashboardCard
         CurriculumCard
+        LibraryCard
 </template>
 
 <script>
@@ -24,6 +25,7 @@
   import BannerCard from '@/components/banner-card'
   import DashboardCard from '@/components/dashboard-card'
   import CurriculumCard from '@/components/curriculum-card'
+  import LibraryCard from '@/components/library-card'
   
   export default class Index extends wepy.page {
 
@@ -35,7 +37,8 @@
         auth:Auth,
         DashboardCard,
         CurriculumCard,
-        BannerCard
+        BannerCard,
+        LibraryCard
     }
     
     data = {
@@ -62,11 +65,13 @@
             this.$apply()
         }
     }
+
     onPullDownRefresh() {
         this.$broadcast('update')
         wx.vibrateShort({})
         wx.stopPullDownRefresh()
     }
+
     onLoad() {
 
     }
