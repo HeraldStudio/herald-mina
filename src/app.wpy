@@ -142,6 +142,7 @@ export default class extends wepy.app {
       'pages/wechat-push'
     ],
     window: {
+      navigationStyle: 'custom',
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#00abc3',
       navigationBarTitleText: '小猴偷米',
@@ -150,27 +151,7 @@ export default class extends wepy.app {
       backgroundColor:'#ffffff',
       onReachBottomDistance: 50,
       backgroundTextStyle: 'dark'
-    },
-    tabBar: {
-      color:'#888888',
-      selectedColor:'#00abc3',
-      backgroundColor:'#ffffff',
-      list: [{
-        iconPath: "resource/images/tab-icon/home.png",
-        selectedIconPath: "resource/images/tab-icon/home-selected.png",
-        pagePath: "pages/home",
-        text: "首页"
-    }, {
-        iconPath: "resource/images/tab-icon/activity.png",
-        selectedIconPath: "resource/images/tab-icon/activity-selected.png",
-        pagePath: "pages/activity",
-        text: "活动"
-    }, {
-        iconPath: "resource/images/tab-icon/notification.png",
-        selectedIconPath: "resource/images/tab-icon/notification-selected.png",
-        pagePath: "pages/notification",
-        text: "通知"
-    }]}
+    }
   }
   enablePullDownRefresh = true
 

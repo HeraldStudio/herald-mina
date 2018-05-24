@@ -10,13 +10,7 @@
 </style>
 
 <template lang="pug">
-  view.body
-    auth
-    view.body(wx-if="{{isAuthed}}")
-        BannerCard
-        DashboardCard
-        CurriculumCard
-        LibraryCard
+  web-view(src="https://myseu.cn/")
 </template>
 
 <script>
