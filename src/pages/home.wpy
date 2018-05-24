@@ -15,11 +15,6 @@
 
 <script>
   import wepy from 'wepy'
-  import Auth from '@/components/auth'
-  import BannerCard from '@/components/banner-card'
-  import DashboardCard from '@/components/dashboard-card'
-  import CurriculumCard from '@/components/curriculum-card'
-  import LibraryCard from '@/components/library-card'
   
   export default class Index extends wepy.page {
 
@@ -28,46 +23,21 @@
     }
 
     components = {
-        auth:Auth,
-        DashboardCard,
-        CurriculumCard,
-        BannerCard,
-        LibraryCard
     }
     
     data = {
-        isAuthed:false
     }
   
     methods = {
     }
   
     events = {
-        auth_success:()=>{
-            this.isAuthed = true
-            this.$apply()
-            setTimeout(() => this.$broadcast('update'),0)
-            console.log('认证成功');
-        },
-        auth_fail:()=>{
-            this.isAuthed = false
-            this.$apply()
-        },
-        deauth:()=>{
-            this.$broadcast('deauth')
-            this.isAuthed = false
-            this.$apply()
-        }
     }
 
     onPullDownRefresh() {
-        this.$broadcast('update')
-        wx.vibrateShort({})
-        wx.stopPullDownRefresh()
     }
 
     onLoad() {
-
     }
 
   }
